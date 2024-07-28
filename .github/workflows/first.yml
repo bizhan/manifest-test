@@ -26,8 +26,8 @@ jobs:
       run: |
         #!/bin/bash
 
-        # Navigate to workspace
-        cd /workspaces/$(basename $(git rev-parse --show-toplevel))
+        # Navigate to home directory 
+        cd /home/aermobdev
 
         # Print debug information
         echo "SSH Key added"
