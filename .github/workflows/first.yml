@@ -1,0 +1,65 @@
+name: Run Script
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on:
+      - self-hosted
+      - label-raven
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        echo "Host github.com
+              StrictHostKeyChecking no
+              IdentityFile ~/.ssh/id_rsa" > ~/.ssh/config
+        chmod 600 ~/.ssh/config
+
+    - name: Run the script
+      run: |
+        #!/bin/bash
+
+        # Navigate to workspace
+        cd /workspaces/$(basename $(git rev-parse --show-toplevel))
+
+        # Print debug information
+        echo "SSH Key added"
+        ls -la ~/.ssh
+
+        # Print current known hosts
+        cat ~/.ssh/known_hosts || echo "No known hosts file found"
+
+        # Set Git user configuration to avoid interactive prompts
+        git config --global user.name "bizhan"
+        git config --global user.email "bizhan.gholikhamseh@gmail.com"
+
+        # Set Git color configuration to avoid prompts
+        git config --global color.ui auto
+
+        # Check if repo is already initialized
+        if [ -d ".repo" ]; then
+          echo "Repo already initialized, syncing..."
+          repo sync
+        else
+          echo "Initializing repo..."
+          yes | repo init -u git@github.com:aerendirmobile/manifests.git -b main -m manifest.xml
+          if [ $? -ne 0 ]; then
+            echo "Repo initialization failed"
+            exit 1
+          fi
+          repo sync
+          if [ $? -ne 0 ]; then
+            echo "Repo sync failed"
+            exit 1
+          fi
+        fi
+        echo "Repo initialization and sync completed"
+
