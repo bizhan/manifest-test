@@ -1,0 +1,45 @@
+name: Run Second Script
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on:
+      - self-hosted
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "bizhan"
+        git config --global user.email "bizhan.gholikhamseh@gmail.com"
+
+    - name: Clean existing directories
+      run: |
+        # Check if .repo or /home/aermobdev/Aerendir directory exists
+        if [ -d ".repo" ] || [ -d "/home/aermobdev/Aerendir" ]; then
+          echo "Removing existing .repo and /home/aermobdev/Aerendir directories..."
+          rm -rf .repo
+          rm -rf /home/aermobdev/Aerendir
+        fi
+
+    - name: Initialize and sync repo
+      run: |
+        echo "Initializing repo..."
+        repo init -u git@github.com:aerendirmobile/manifests.git -b main -m manifest.xml
+        if [ $? -ne 0 ]; then
+          echo "Repo initialization failed"
+          exit 1
+        fi
+
+        echo "Syncing repo..."
+        repo sync
+        if [ $? -ne 0 ]; then
+          echo "Repo sync failed"
+          exit 1
+        fi
+        echo "Repo initialization and sync completed"
+
