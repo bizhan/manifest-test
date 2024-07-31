@@ -49,7 +49,7 @@ jobs:
           repo sync
         else
           echo "Initializing repo..."
-          yes | repo init -u git@github.com:aerendirmobile/manifests.git -b main -m manifest.xml
+          repo init -u git@github.com:aerendirmobile/manifests.git -b main -m manifest.xml
           if [ $? -ne 0 ]; then
             echo "Repo initialization failed"
             exit 1
