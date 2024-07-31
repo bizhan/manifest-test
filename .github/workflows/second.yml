@@ -1,4 +1,4 @@
-name: Run Second Script
+name: Run Script
 
 on:
   workflow_dispatch:
@@ -23,7 +23,7 @@ jobs:
         if [ -d ".repo" ] || [ -d "/home/aermobdev/Aerendir" ]; then
           echo "Removing existing .repo and /home/aermobdev/Aerendir directories..."
           rm -rf .repo
-          echo "rm -rf /home/aermobdev/Aerendir"
+          echo "Removing /home/aermobdev/Aerendir directory..."
           rm -rf /home/aermobdev/Aerendir
         fi
 
@@ -50,4 +50,19 @@ jobs:
         cd /home/aermobdev/Aerendir/projects/exps-repo/Nulukkizdin/mk
         export REPO_PATH=/home/aermobdev
         make -f make_linux.mk
+
+    - name: Send email if build is successful
+      if: success()
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.example.com
+        server_port: 587
+        # username: ${{ secrets.SMTP_USERNAME }}
+        # password: ${{ secrets.SMTP_PASSWORD }}
+        username: "bizhan@aermob.dev"
+        password: "aerbizhan"
+        subject: Build Successful
+        body: The build was successful.
+        to: bizhan@aermob.dev
+        from: no-reply@aermob.dev
 
