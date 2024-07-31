@@ -46,7 +46,8 @@ jobs:
 
     - name: Build repo
       run: |
-        cd /home/aerendir/Aerendir/projects/exp-repos/Nulukkizdin/mk
+        echo "Building repo..."
+        cd /home/aermobdev/Aerendir/projects/exps-repo/Nulukkizdin/mk
         export REPO_PATH=/home/aermobdev
         make -f make_linux.mk
 
