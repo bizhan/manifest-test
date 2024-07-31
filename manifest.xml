@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="origin" fetch="ssh://git@github.com/aerendirmobile/" />
+  <default revision="master" remote="origin" />
+
+  <project name="exps-repo" path="Aerendir/projects/exps-repo" revision="28-reeder" />
+  <project name="apps-repo" path="Aerendir/projects/apps-repo" revision="dev" />
+  <project name="npsdk-repo" path="Aerendir/projects/npsdk-repo" />
+  <project name="data-repo" path="Aerendir/projects/data-repo" />
+  <project name="scripts" path="Aerendir/projects/scripts" />
+</manifest>
+
