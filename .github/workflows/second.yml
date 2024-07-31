@@ -22,7 +22,6 @@ jobs:
         # Check if .repo or /home/aermobdev/Aerendir directory exists
         if [ -d ".repo" ] || [ -d "/home/aermobdev/Aerendir" ]; then
           echo "Removing existing .repo and /home/aermobdev/Aerendir directories..."
-          echo "rm -rf .repo"
           rm -rf .repo
           echo "rm -rf /home/aermobdev/Aerendir"
           rm -rf /home/aermobdev/Aerendir
@@ -44,4 +43,10 @@ jobs:
           exit 1
         fi
         echo "Repo initialization and sync completed"
+
+    - name: Build repo
+      run: |
+        cd /home/aerendir/Aerendir/projects/exp-repos/Nulukkizdin/mk
+        export REPO_PATH=/home/aermobdev
+        make -f make_linux.mk
 
