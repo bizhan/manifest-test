@@ -51,18 +51,38 @@ jobs:
         export REPO_PATH=/home/aermobdev
         make -f make_linux.mk
 
-    - name: Send email if build is successful
+    # - name: Send email if build is successful
+    #   if: success()
+    #   uses: dawidd6/action-send-mail@v3
+    #   with:
+    #     server_address: smtp.example.com
+    #     server_port: 587
+    #     # username: ${{ secrets.SMTP_USERNAME }}
+    #     # password: ${{ secrets.SMTP_PASSWORD }}
+    #     username: "bizhan@aermob.dev"
+    #     password: "aermobdev"
+    #     subject: Build Successful
+    #     body: The build was successful.
+    #     to: bizhan@aermob.dev
+    #     from: no-reply@aermob.dev
+
+    - name: Notify Slack on success
       if: success()
-      uses: dawidd6/action-send-mail@v3
+      uses: 8398a7/action-slack@v3
       with:
-        server_address: smtp.example.com
-        server_port: 587
-        # username: ${{ secrets.SMTP_USERNAME }}
-        # password: ${{ secrets.SMTP_PASSWORD }}
-        username: "bizhan@aermob.dev"
-        password: "aerbizhan"
-        subject: Build Successful
-        body: The build was successful.
-        to: bizhan@aermob.dev
-        from: no-reply@aermob.dev
+        status: success
+        author_name: bizhan
+        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    - name: Notify Slack on failure
+      if: failure()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: failure
+        author_name: bizhan
+        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
