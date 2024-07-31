@@ -43,22 +43,26 @@ jobs:
         # Set Git color configuration to avoid prompts
         git config --global color.ui auto
 
-        # Check if repo is already initialized
-        if [ -d ".repo" ]; then
-          echo "Repo already initialized, syncing..."
-          repo sync
-        else
-          echo "Initializing repo..."
-          repo init -u git@github.com:aerendirmobile/manifests.git -b main -m manifest.xml
-          if [ $? -ne 0 ]; then
-            echo "Repo initialization failed"
-            exit 1
-          fi
-          repo sync
-          if [ $? -ne 0 ]; then
-            echo "Repo sync failed"
-            exit 1
-          fi
+        # Check if .repo or /home/aermobdev/Aerendir directory exists
+        if [ -d ".repo" ] || [ -d "/home/aermobdev/Aerendir" ]; then
+          echo "Removing existing .repo and /home/aermobdev/Aerendir directories..."
+          rm -rf .repo
+          rm -rf /home/aermobdev/Aerendir
+        fi
+
+        # Initialize and sync repo
+        echo "Initializing repo..."
+        repo init -u git@github.com:aerendirmobile/manifests.git -b main -m manifest.xml
+        if [ $? -ne 0 ]; then
+          echo "Repo initialization failed"
+          exit 1
+        fi
+
+        echo "Syncing repo..."
+        repo sync
+        if [ $? -ne 0 ]; then
+          echo "Repo sync failed"
+          exit 1
         fi
         echo "Repo initialization and sync completed"
 
