@@ -13,14 +13,14 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        echo "Host github.com
-              StrictHostKeyChecking no
-              IdentityFile ~/.ssh/id_rsa" > ~/.ssh/config
-        chmod 600 ~/.ssh/config
+      # run: |
+      #   mkdir -p ~/.ssh
+      #   echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+      #   chmod 600 ~/.ssh/id_rsa
+      #   echo "Host github.com
+      #         StrictHostKeyChecking no
+      #         IdentityFile ~/.ssh/id_rsa" > ~/.ssh/config
+      #   chmod 600 ~/.ssh/config
 
     - name: Run the script
       run: |
