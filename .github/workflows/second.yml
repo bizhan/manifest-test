@@ -71,21 +71,22 @@ jobs:
       uses: 8398a7/action-slack@v3
       with:
         status: success
-        author_name: bizhan
-        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        channel: "#github-actions"
+        #author_name: bizhan
+        #fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_GITHUB_ACTIONS }}  # Use the stored organization secret
-        #SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        #SLACK_WEBHOOK_URL: https://hooks.slack.com/services/T01JZQZQZ3V/B01JZQZQZ3V/1JZQZQZ3V
-
-    - name: Notify Slack on failure
-      if: failure()
-      uses: 8398a7/action-slack@v3
-      with:
-        status: failure
-        author_name: bizhan
-        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-      env:
+        #SLACK_WEBHOOK_URL: ${{ secrets.SLACK_GITHUB_ACTIONS }}  # Use the stored organization secret
         #SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_URL: https://hooks.slack.com/services/T01JZQZQZ3V/B01JZQZQZ3V/1JZQZQZ3V
+
+    # - name: Notify Slack on failure
+    #   if: failure()
+    #   uses: 8398a7/action-slack@v3
+    #   with:
+    #     status: failure
+    #     author_name: bizhan
+    #     fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+    #   env:
+    #     #SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    #     SLACK_WEBHOOK_URL: https://hooks.slack.com/services/T01JZQZQZ3V/B01JZQZQZ3V/1JZQZQZ3V
 
