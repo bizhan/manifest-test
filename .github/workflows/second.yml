@@ -74,7 +74,7 @@ jobs:
         author_name: bizhan
         fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
       env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_GITHUB_ACTIONS }}  # Use the stored organization secret
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_GITHUB_ACTIONS }}  # Use the stored organization secret
         #SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     # - name: Notify Slack on failure
