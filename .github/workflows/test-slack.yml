@@ -16,4 +16,4 @@ jobs:
               "text": "Hello, World!"
             }
         env:
-          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
