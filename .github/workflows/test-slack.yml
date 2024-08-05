@@ -1,4 +1,4 @@
-name: Run Script
+name: Slack_Github_Action
 
 on:
   workflow_dispatch:
@@ -8,3 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sending notification on Slack using Webhooks
+        uses: 8398a7/action-slack@v3
+        with:
+          payload: |
+            {
+             "text": ""
+            }
+        env:
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+          
