@@ -15,4 +15,4 @@ jobs:
             "text": "Hello, World!"
             }
         env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
