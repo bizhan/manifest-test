@@ -1,4 +1,4 @@
-name: Slack_Github_Action
+name: Slack2_Github_Action
 
 on:
   workflow_dispatch:
@@ -15,4 +15,4 @@ jobs:
             "text": "Hello, World!"
             }
         env:
-        SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+           SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
